@@ -21,6 +21,7 @@
   height: 40vh;
   width: 30%;
   border: 1px solid black;
+  margin: auto;
 }
 .human-response {
   display: flex;

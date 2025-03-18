@@ -1,4 +1,5 @@
 import "./App.css";
+import Markdown from "react-markdown";
 
 const App = () => {
   return (
@@ -8,7 +9,12 @@ const App = () => {
         <p>Job Title:</p>
         <input type="textarea" placeholder="Job Title" className="role" />
       </div>
-      <input className="AI-response" />
+      <div className="AI-response">
+        <Markdown>
+        {/* this will use a plugin to automatically format the markdown generated text to readable format */}
+          # AI Response
+        </Markdown>
+      </div>
       <div className="human-response">
         <input
           className="response"
