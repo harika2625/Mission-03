@@ -1,6 +1,42 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
+.container {
+  margin: 0;
   padding: 2rem;
   text-align: center;
+  display: block;
+}
+.job-title {
+  display: flex;
+  justify-content: center;
+}
+.job-title p {
+  font-size: 1.5rem;
+}
+.job-title .role {
+  width: 48vh;
+  height: 3vh;
+  margin-top: 1.2rem;
+  border: 2px solid #43c0f6;
+}
+.AI-response {
+  height: 40vh;
+  width: 30%;
+  border: 1px solid black;
+}
+.human-response {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin: 1rem;
+}
+.response {
+  width: 48vh;
+  height: 3vh;
+  border: 2px solid #43c0f6;
+}
+.human-response button {
+  background-color: #43c0f6;
+  color: white;
+  width: 10vh;
+  font-size: 1.2rem;
+  border: 1px solid black;
 }
