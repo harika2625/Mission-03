@@ -96,7 +96,7 @@ app.post("/chat", async (req, res) => {
   /** Initialize the chat with the chat history and predefined parts */
   
   const fullChat = [
-    [{ role: "user", parts }], // Add the predefined parts to the chat
+    [{ role: "user", parts }], // Add the predefined parts config to the chat
     ...chatHistory, // Add the chat history to the chat
     { role: "user", parts: [{ text: msg }] },
   ]
