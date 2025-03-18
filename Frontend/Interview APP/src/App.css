@@ -17,6 +17,15 @@
   margin-top: 1.2rem;
   border: 2px solid #43c0f6;
 }
+.generateQ {
+  width: 10vh;
+  height: 4vh;
+  margin-top: 01rem;
+  background-color: #43c0f6;
+  color: white;
+  border: 1px solid black;
+  margin-left: 1rem;
+}
 .AI-response {
   height: 40vh;
   width: 30%;
