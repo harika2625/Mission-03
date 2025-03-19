@@ -30,6 +30,11 @@
   background-color: #196b8f;
   cursor: pointer;
 }
+.generateQ:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
 .AI-response {
   height: 40vh;
   width: 30%;
@@ -59,6 +64,11 @@
   cursor: pointer;
 }
 
+.human-response button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
 .chat-entry{
   text-align: left;
   margin: 1rem;
@@ -68,4 +78,9 @@
 }
 .model{
   color:rgb(90, 90, 90)
+}
+
+.loading {
+  background-color: #ccc;
+  cursor: wait;
 }
