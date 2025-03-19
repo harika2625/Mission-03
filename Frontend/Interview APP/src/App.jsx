@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import "./App.css";
+import Markdown from 'react-markdown';
 
 const App = () => {
   const [role, setRole] = useState("");
@@ -147,7 +148,7 @@ const App = () => {
         {chatHistory.map((entry, index) => (
           <div key={index} className={`chat-entry ${entry.role}`}>
             <strong>{entry.role === "user" ? "Me" : "Interviewer"}: </strong>
-            <span>{entry.parts[0].text}</span>
+            <span><Markdown>{entry.parts[0].text}</Markdown></span>
           </div>
         ))}
         {/* Reference to bottom of DIV to make scrolling work */}
