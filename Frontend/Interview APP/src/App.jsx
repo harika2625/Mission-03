@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import "./App.css";
 
 const App = () => {
@@ -6,6 +6,7 @@ const App = () => {
   const [AIresponse, setAIResponse] = useState("");
   const [humanResponse, setHumanResponse] = useState("");
   const [chatHistory, setChatHistory] = useState([]);
+  const bottomRef = useRef(null); // Create a ref for the last chat entry
 
   const handleRoleChange = (e) => {
     const newRole = e.target.value;
@@ -70,6 +71,13 @@ const App = () => {
       ]);
     }
   }, [AIresponse]); // run this effect when AIresponse changes
+
+  useEffect(() => {
+    // Scroll to the bottom whenever the chat history changes
+    if (bottomRef.current) {
+      bottomRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [chatHistory]); // runs when chatHistory is updated
 
   const handleSubmit = async () => {
     console.log("User Response:", humanResponse);
@@ -142,6 +150,8 @@ const App = () => {
             <span>{entry.parts[0].text}</span>
           </div>
         ))}
+        {/* Reference to bottom of DIV to make scrolling work */}
+        <div ref={bottomRef}></div>
       </div>
 
       <div className="human-response">
