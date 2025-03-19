@@ -20,21 +20,26 @@ const App = () => {
   const fetchAIResponse = async () => {
     if (!role) {
       alert("Please enter a job title");
+      return; // Prevent further execution
     }
+  
     try {
-      const response = await fetch("http://localhost:3000/", {
+      const response = await fetch("http://localhost:3000/chat", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          prompt: `Generate an interview question for a ${role} role.`,
+          chat: role, // Send the job title
+          history: [], // Pass an empty history for now (can be updated later)
         }),
       });
+  
       const data = await response.json();
-      setAIResponse(data.answer || "No response received");
+      setAIResponse(data.text || "No response received");
     } catch (error) {
-      console.log("Error:", error);
+      console.error("Error:", error);
+      setAIResponse("Error fetching response from the server");
     }
   };
 
