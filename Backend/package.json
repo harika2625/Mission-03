@@ -13,7 +13,6 @@
   "devDependencies": {
     "jest": "^29.7.0"
   },
-
   "dependencies": {
     "@google/generative-ai": "^0.24.0",
     "axios": "^1.8.3",
