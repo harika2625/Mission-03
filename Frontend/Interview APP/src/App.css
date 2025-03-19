@@ -26,11 +26,16 @@
   border: 1px solid black;
   margin-left: 1rem;
 }
+.generateQ:hover {
+  background-color: #196b8f;
+  cursor: pointer;
+}
 .AI-response {
   height: 40vh;
   width: 30%;
   border: 1px solid black;
-  margin: 0 auto;
+  margin: auto;
+  overflow-y: scroll;
 }
 .human-response {
   display: flex;
@@ -47,6 +52,20 @@
   background-color: #43c0f6;
   color: white;
   width: 10vh;
-  font-size: 1.2rem;
   border: 1px solid black;
+}
+.human-response button:hover {
+  background-color: #196b8f;
+  cursor: pointer;
+}
+
+.chat-entry{
+  text-align: left;
+  margin: 1rem;
+}
+.user{
+  color:#196b8f;
+}
+.model{
+  color:rgb(90, 90, 90)
 }
