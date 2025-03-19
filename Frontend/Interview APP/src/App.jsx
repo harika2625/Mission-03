@@ -130,7 +130,7 @@ const App = () => {
       <div className="AI-response">
         <Markdown>
         {/* this will use a plugin to automatically format the markdown generated text to readable format */}
-          # AI Response
+          {AIresponse}
         </Markdown>
       </div>
       <div className="human-response">
