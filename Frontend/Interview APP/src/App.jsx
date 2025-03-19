@@ -7,6 +7,7 @@ const App = () => {
   const [AIresponse, setAIResponse] = useState("");
   const [humanResponse, setHumanResponse] = useState("");
   const [chatHistory, setChatHistory] = useState([]);
+  const [loading, setLoading] = useState(false); 
   const bottomRef = useRef(null); // Create a ref for the last chat entry
 
   const handleRoleChange = (e) => {
@@ -29,7 +30,8 @@ const App = () => {
       return; // Prevent further execution
     }
 
-    // Create initial history with the role as "user" asking for the job title
+    setLoading(true); // Set loading to true while fetching AI response
+
     const updatedHistory = [
       ...chatHistory,
       {
@@ -38,7 +40,7 @@ const App = () => {
       },
     ];
 
-    setChatHistory(updatedHistory); // Update the chat history with the user response
+    setChatHistory(updatedHistory); 
 
     try {
       const response = await fetch("http://localhost:3000/chat", {
@@ -47,8 +49,8 @@ const App = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          chat: role, // Send the job title
-          history: updatedHistory, // Use the updated history
+          chat: role,
+          history: updatedHistory,
         }),
       });
 
@@ -57,12 +59,13 @@ const App = () => {
     } catch (error) {
       console.error("Error:", error);
       setAIResponse("Error fetching response from the server");
+    } finally {
+      setLoading(false); // Reset loading after fetching response
     }
   };
 
   useEffect(() => {
     if (AIresponse) {
-      // After the AI response is set, add it to the chat history
       setChatHistory((prevHistory) => [
         ...prevHistory,
         {
@@ -71,29 +74,27 @@ const App = () => {
         },
       ]);
     }
-  }, [AIresponse]); // run this effect when AIresponse changes
+  }, [AIresponse]);
 
   useEffect(() => {
-    // Scroll to the bottom whenever the chat history changes
     if (bottomRef.current) {
       bottomRef.current.scrollIntoView({ behavior: "smooth" });
     }
-  }, [chatHistory]); // runs when chatHistory is updated
+  }, [chatHistory]);
 
   const handleSubmit = async () => {
-    console.log("User Response:", humanResponse);
-
     if (!role) {
       alert("Please enter a job title");
-      return; // Prevent further execution
+      return;
     }
 
     if (!humanResponse) {
       alert("Please enter a response");
-      return; // Prevent further execution
+      return;
     }
 
-    // Add the user response to the chat history
+    setLoading(true); // Set loading to true while fetching AI response
+
     const updatedHistory = [
       ...chatHistory,
       {
@@ -102,7 +103,7 @@ const App = () => {
       },
     ];
 
-    setChatHistory(updatedHistory); // Update the chat history
+    setChatHistory(updatedHistory); 
 
     try {
       const response = await fetch("http://localhost:3000/chat", {
@@ -111,8 +112,8 @@ const App = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          chat: humanResponse, // Send the text from the user input
-          history: updatedHistory, // Pass the updated history to the backend
+          chat: humanResponse,
+          history: updatedHistory,
         }),
       });
 
@@ -121,9 +122,11 @@ const App = () => {
     } catch (error) {
       console.error("Error:", error);
       setAIResponse("Error fetching response from the server");
+    } finally {
+      setLoading(false); // Reset loading after fetching response
     }
 
-    setHumanResponse(""); // Clear the human response input field
+    setHumanResponse(""); 
   };
 
   return (
@@ -138,20 +141,22 @@ const App = () => {
           value={role}
           onChange={handleRoleChange}
         />
-        <button onClick={fetchAIResponse} className="generateQ">
+        <button 
+          onClick={fetchAIResponse} 
+          className={`generateQ ${loading && 'loading'}`} 
+          disabled={loading} // Disable button when loading
+        >
           Generate
         </button>
       </div>
 
       <div className="AI-response">
-        {/* Iterate over chatHistory to display the full conversation */}
         {chatHistory.map((entry, index) => (
           <div key={index} className={`chat-entry ${entry.role}`}>
             <strong>{entry.role === "user" ? "Me" : "Interviewer"}: </strong>
             <span><Markdown>{entry.parts[0].text}</Markdown></span>
           </div>
         ))}
-        {/* Reference to bottom of DIV to make scrolling work */}
         <div ref={bottomRef}></div>
       </div>
 
@@ -163,7 +168,12 @@ const App = () => {
           value={humanResponse}
           onChange={handleHumanResponseChange}
         />
-        <button type="submit" onClick={handleSubmit}>
+        <button 
+          type="submit" 
+          onClick={handleSubmit} 
+          className={`submit ${loading && 'loading'}`} 
+          disabled={loading} // Disable button when loading
+        >
           Submit
         </button>
       </div>
