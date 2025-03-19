@@ -14,7 +14,7 @@ const App = () => {
 
     // Clear chat history when the role changes
     if (newRole !== role) {
-      setChatHistory([]); 
+      setChatHistory([]);
     }
   };
 
