@@ -151,12 +151,14 @@ const App = () => {
       </div>
 
       <div className="AI-response">
+        {/* Iterate over chatHistory to display the full conversation */}        
         {chatHistory.map((entry, index) => (
           <div key={index} className={`chat-entry ${entry.role}`}>
             <strong>{entry.role === "user" ? "Me" : "Interviewer"}: </strong>
             <span><Markdown>{entry.parts[0].text}</Markdown></span>
           </div>
         ))}
+        {/* reference to the bottom of chat box for auto-scrolling feature*/}
         <div ref={bottomRef}></div>
       </div>
 
